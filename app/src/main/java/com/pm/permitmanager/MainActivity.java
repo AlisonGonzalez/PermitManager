@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid());
 
         stateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -70,6 +69,7 @@ public class MainActivity extends AppCompatActivity
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser != null) {
                     Toast.makeText(getApplicationContext(), "Log In Successful", Toast.LENGTH_LONG).show();
+                    databaseReference = firebaseDatabase.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid());
                 } else {
                     List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(), new AuthUI.IdpConfig.GoogleBuilder().build());
 
@@ -112,7 +112,14 @@ public class MainActivity extends AppCompatActivity
                     public void onClick(DialogInterface dialog, int id) {
                         // get user input and set it to result
                         if (input.getText() != null) {
-                            databaseReference.child("companies").push().child("name").setValue(input.getText().toString());
+                            if (databaseReference == null) {
+                                if (firebaseAuth.getCurrentUser() != null) {
+                                    databaseReference = firebaseDatabase.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid());
+                                    databaseReference.child("companies").push().child("name").setValue(input.getText().toString());
+                                }
+                            } else {
+                                databaseReference.child("companies").push().child("name").setValue(input.getText().toString());
+                            }
                         }
                     }
                 })

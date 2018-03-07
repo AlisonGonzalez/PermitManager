@@ -75,7 +75,6 @@ public class CompanyFragment extends ListFragment {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid()).child("companies");
 
         stateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -91,10 +90,12 @@ public class CompanyFragment extends ListFragment {
                                     .setAvailableProviders(providers)
                                     .build(),
                             RC_SIGN_IN);
+                } else {
+                    databaseReference = firebaseDatabase.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid()).child("companies");
+                    loadCompanies();
                 }
             }
         };
-        loadCompanies();
     }
 
     private void loadCompanies() {
