@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "194736339205",
+    "firebase_url": "https://permitmanager-2391e.firebaseio.com",
+    "project_id": "permitmanager-2391e",
+    "storage_bucket": "permitmanager-2391e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194736339205:android:48e71f4ebeae97ce",
+        "android_client_info": {
+          "package_name": "com.pm.permitmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194736339205-mirj7tc42bf7qvh61h3oa3qnq5hu6j2a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pm.permitmanager",
+            "certificate_hash": "680d1027396aa163aa2a258863f9b65bdeb45b5b"
+          }
+        },
+        {
+          "client_id": "194736339205-0qt35q2v12evfum605ab8pes57md7fj7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIOenfQfehg7tsjEIthn1DiHhz1cOsMjw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194736339205-0qt35q2v12evfum605ab8pes57md7fj7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

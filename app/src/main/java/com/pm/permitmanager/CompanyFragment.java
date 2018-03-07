@@ -26,6 +26,8 @@ public class CompanyFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_company, container, false);
         ListView listView = (ListView) view.findViewById(R.id.list);
+
+
         String[] content = {
                 "Ford",
                 "Mazda",
