@@ -6,9 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -34,6 +37,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser != null) {
                     Toast.makeText(getApplicationContext(), "Log In Successful", Toast.LENGTH_LONG).show();
-                    databaseReference = firebaseDatabase.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid());
+                    databaseReference = firebaseDatabase.getReference().child("companies").child(firebaseAuth.getCurrentUser().getUid());
                 } else {
                     List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(), new AuthUI.IdpConfig.GoogleBuilder().build());
 
@@ -103,27 +107,58 @@ public class MainActivity extends AppCompatActivity
             // set prompts.xml to be the layout file of the alertdialog builder
             alertDialogBuilder.setView(promptView);
 
-            final EditText input = (EditText) promptView.findViewById(R.id.userInput);
+            final TextInputLayout companyInput = (TextInputLayout) promptView.findViewById(R.id.companyInput);
+            final TextInputLayout contactInput = (TextInputLayout) promptView.findViewById(R.id.contactInput);
+            final TextInputLayout phoneInput = (TextInputLayout) promptView.findViewById(R.id.phoneInput);
+            final TextInputLayout addressInput = (TextInputLayout) promptView.findViewById(R.id.addressInput);
 
             // setup a dialog window
             alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // get user input and set it to result
-                        if (input.getText() != null) {
-                            if (databaseReference == null) {
-                                if (firebaseAuth.getCurrentUser() != null) {
-                                    databaseReference = firebaseDatabase.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid());
-                                    databaseReference.child("companies").push().child("name").setValue(input.getText().toString());
+                        // get user companyInput and set it to result
+                        if (!companyInput.getEditText().getText().toString().isEmpty()) {
+                            companyInput.setError(null);
+                            if (!contactInput.getEditText().getText().toString().isEmpty()){
+                                contactInput.setError(null);
+                                if (!phoneInput.getEditText().getText().toString().isEmpty()){
+                                    phoneInput.setError(null);
+                                    if (!addressInput.getEditText().getText().toString().isEmpty()){
+                                        addressInput.setError(null);
+                                        if (databaseReference == null) {
+                                            if (firebaseAuth.getCurrentUser() != null) {
+                                                databaseReference = firebaseDatabase.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid()).child("companies");
+                                                HashMap<String, String> companyData = new HashMap<>();
+                                                companyData.put("name", companyInput.getEditText().getText().toString());
+                                                companyData.put("contact", contactInput.getEditText().getText().toString());
+                                                companyData.put("phone", phoneInput.getEditText().getText().toString());
+                                                companyData.put("address", addressInput.getEditText().getText().toString());
+                                                databaseReference.push().setValue(companyData);
+                                            }
+                                        } else {
+                                            HashMap<String, String> companyData = new HashMap<>();
+                                            companyData.put("name", companyInput.getEditText().getText().toString());
+                                            companyData.put("contact", contactInput.getEditText().getText().toString());
+                                            companyData.put("phone", phoneInput.getEditText().getText().toString());
+                                            companyData.put("address", addressInput.getEditText().getText().toString());
+                                            databaseReference.child("companies").push().setValue(companyData);
+                                        }
+                                    }else{
+                                        addressInput.setError("Dirección no válida");
+                                    }
+                                }else{
+                                    phoneInput.setError("Teléfono no válido");
                                 }
-                            } else {
-                                databaseReference.child("companies").push().child("name").setValue(input.getText().toString());
+                            }else{
+                                contactInput.setError("Contacto no válido");
                             }
+                        }else{
+                            companyInput.setError("Compañía no válida");
                         }
                     }
                 })
-                .setNegativeButton("Cancel",
+                .setNegativeButton("Cancelar",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog,	int id) {
                             dialog.cancel();

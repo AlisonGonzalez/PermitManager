@@ -1,26 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_root"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre de la empresa: "
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/companyInput"
+        android:layout_width="387dp"
+        android:layout_height="58dp"
+        app:errorEnabled="true">
 
-    <EditText
-        android:id="@+id/userInput"
-        android:layout_width="match_parent"
-        android:inputType="text"
-        android:layout_height="wrap_content" >
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre de la empresa" />
+    </android.support.design.widget.TextInputLayout>
 
-        <requestFocus />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/contactInput"
+        android:layout_width="387dp"
+        android:layout_height="wrap_content">
 
-    </EditText>
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre del contacto" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/phoneInput"
+        android:layout_width="387dp"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Teléfono" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/addressInput"
+        android:layout_width="387dp"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Dirección" />
+    </android.support.design.widget.TextInputLayout>
 
 </LinearLayout>
