@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity
             final TextInputLayout contactInput = (TextInputLayout) promptView.findViewById(R.id.contactInput);
             final TextInputLayout phoneInput = (TextInputLayout) promptView.findViewById(R.id.phoneInput);
             final TextInputLayout addressInput = (TextInputLayout) promptView.findViewById(R.id.addressInput);
+            final TextInputLayout rfcInput = (TextInputLayout) promptView.findViewById(R.id.rfcInput);
 
             // setup a dialog window
             alertDialogBuilder
@@ -124,25 +125,30 @@ public class MainActivity extends AppCompatActivity
                                 contactInput.setError(null);
                                 if (!phoneInput.getEditText().getText().toString().isEmpty()){
                                     phoneInput.setError(null);
-                                    if (!addressInput.getEditText().getText().toString().isEmpty()){
+                                    if (!addressInput.getEditText().getText().toString().isEmpty()) {
                                         addressInput.setError(null);
-                                        if (databaseReference == null) {
-                                            if (firebaseAuth.getCurrentUser() != null) {
-                                                databaseReference = firebaseDatabase.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid()).child("companies");
+                                        if (!rfcInput.getEditText().getText().toString().isEmpty()) {
+                                            rfcInput.setError(null);
+                                            if (databaseReference == null) {
+                                                if (firebaseAuth.getCurrentUser() != null) {
+                                                    databaseReference = firebaseDatabase.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid()).child("companies");
+                                                    HashMap<String, String> companyData = new HashMap<>();
+                                                    companyData.put("name", companyInput.getEditText().getText().toString());
+                                                    companyData.put("contact", contactInput.getEditText().getText().toString());
+                                                    companyData.put("phone", phoneInput.getEditText().getText().toString());
+                                                    companyData.put("address", addressInput.getEditText().getText().toString());
+                                                    databaseReference.push().setValue(companyData);
+                                                }
+                                            } else {
                                                 HashMap<String, String> companyData = new HashMap<>();
                                                 companyData.put("name", companyInput.getEditText().getText().toString());
                                                 companyData.put("contact", contactInput.getEditText().getText().toString());
                                                 companyData.put("phone", phoneInput.getEditText().getText().toString());
                                                 companyData.put("address", addressInput.getEditText().getText().toString());
-                                                databaseReference.push().setValue(companyData);
+                                                databaseReference.child("companies").push().setValue(companyData);
                                             }
-                                        } else {
-                                            HashMap<String, String> companyData = new HashMap<>();
-                                            companyData.put("name", companyInput.getEditText().getText().toString());
-                                            companyData.put("contact", contactInput.getEditText().getText().toString());
-                                            companyData.put("phone", phoneInput.getEditText().getText().toString());
-                                            companyData.put("address", addressInput.getEditText().getText().toString());
-                                            databaseReference.child("companies").push().setValue(companyData);
+                                        }else{
+                                            rfcInput.setError("RFC no válido");
                                         }
                                     }else{
                                         addressInput.setError("Dirección no válida");
@@ -231,17 +237,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_permit) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_clients) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_package) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_data) {
 
         }
 
