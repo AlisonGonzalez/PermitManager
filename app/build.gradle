@@ -33,8 +33,11 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-auth:3.2.2'
     compile 'com.firebaseui:firebase-ui:3.2.2'
 
-    implementation files('/Users/AlisonGonzalez/AndroidStudioProjects/PermitManager/YouTubeAndroidPlayerApi-1.2.2/libs/YouTubeAndroidPlayerApi.jar')
-
+    //implementation files('/Users/AlisonGonzalez/AndroidStudioProjects/PermitManager/YouTubeAndroidPlayerApi-1.2.2/libs/YouTubeAndroidPlayerApi.jar')
+    implementation files('/Users/Lalo/Downloads/YouTubeAndroidPlayerApi-1/libs/YouTubeAndroidPlayerApi.jar')
+    compile 'ai.api:sdk:2.0.7@aar'
+    compile 'ai.api:libai:1.6.12'
+    compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 }
 
