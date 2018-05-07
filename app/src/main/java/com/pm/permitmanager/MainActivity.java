@@ -1,6 +1,7 @@
 package com.pm.permitmanager;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Empresas"));
         tabLayout.addTab(tabLayout.newTab().setText("Ventas"));
-        tabLayout.addTab(tabLayout.newTab().setText("Periodo"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -186,6 +186,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
     @Override
@@ -239,12 +240,13 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_permit) {
             // Handle the camera action
-        } else if (id == R.id.nav_clients) {
-
         } else if (id == R.id.nav_package) {
+            Intent intent = new Intent(MainActivity.this, PackagesActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_data) {
-
+            Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

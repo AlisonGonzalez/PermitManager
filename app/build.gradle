@@ -32,6 +32,10 @@ dependencies {
     compile 'com.google.firebase:firebase-database:11.8.0'
     compile 'com.firebaseui:firebase-ui-auth:3.2.2'
     compile 'com.firebaseui:firebase-ui:3.2.2'
+
+    implementation files('/Users/AlisonGonzalez/AndroidStudioProjects/PermitManager/YouTubeAndroidPlayerApi-1.2.2/libs/YouTubeAndroidPlayerApi.jar')
+
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 }
 
 apply plugin: 'com.google.gms.google-services'
